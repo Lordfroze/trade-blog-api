@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\MessagesController;
 
 
 Route::get('/user', function (Request $request) {
@@ -24,4 +25,12 @@ Route::prefix('posts')->group(function () {
 Route::prefix('comments')->group(function () {
     Route::post('/', [CommentsController::class, 'store']); // Simpan komentar baru
     Route::delete('{id}', [CommentsController::class, 'destroy']); // Menghapus komentar
+});
+
+// Menghandle Messages
+Route::prefix('messages')->group(function () {
+    Route::post('/', [MessagesController::class, 'store']); // kirim pesan
+    Route::get('{id}', [MessagesController::class, 'show']); // lihat detail pesan
+    Route::get('/getMessages/{user_id}', [MessagesController::class, 'getMessages']);
+    Route::delete('{id}', [MessagesController::class, 'destroy']); // Menghapus pesan
 });

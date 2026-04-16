@@ -38,4 +38,15 @@ class CommentsController extends Controller
             'data' => $comment
         ]);
     }
+
+    // menghapus komentar
+    public function destroy($id)
+    {
+        Comment::destroy($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Komentar berhasil dihapus'
+        ]);
+    }
 }
