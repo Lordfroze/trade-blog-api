@@ -20,6 +20,7 @@ class PostsSeeder extends Seeder
         DB::table('posts')->insert([
             [
                 'user_id' => 1,
+                'title' => $faker->text(5),
                 'content' => $faker->text(),
                 'image_url' => 'https://placehold.co/300',
                 'created_at' => now(),
@@ -27,6 +28,7 @@ class PostsSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
+                'title' => $faker->text(5),
                 'content' => $faker->text(),
                 'image_url' => 'https://placehold.co/300',
                 'created_at' => now(),
