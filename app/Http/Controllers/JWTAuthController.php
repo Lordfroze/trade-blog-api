@@ -16,11 +16,17 @@ class JWTAuthController extends Controller
     // Handling register
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            [
+                'password.confirmed' => 'Password konfirmasi tidak sama bro 😄',
+            ]
+        );
 
         // jika validator gagal
         if ($validator->fails()) {
