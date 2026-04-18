@@ -52,6 +52,22 @@ class JWTAuthController extends Controller
         $credentials = $request->only('email', 'password'); // ambil credential dari request
 
         $token = JWTAuth::attempt($credentials); // cek credential dengan database
+
+        // jika email tidak cocok
+        $user = User::where('email', $credentials['email'])->first();
+        if (!$user) {
+            return response()->json([
+                'error' => 'Email not found',
+            ], 401);
+        }
+
+        // jika password tidak cocok
+        if (!Hash::check($credentials['password'], $user->password)) {
+            return response()->json([
+                'error' => 'Password not match',
+            ], 401);
+        }
+
         // jika credential tidak cocok
         if (!$token) {
             return response()->json([
